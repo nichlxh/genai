@@ -6,7 +6,7 @@ streamlit==1.38.0
 transformers==4.46.1
 openai ==1.53.0
 requests == 2.32.3
-langchain 
-langchain-openai
-langchain-community 
-langchain-chroma
+langchain == 0.3.7
+langchain-openai == 0.2.5
+langchain-community  == 0.3.5
+langchain-chroma == 0.1.4
