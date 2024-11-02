@@ -21,8 +21,8 @@ from openai import OpenAI
 import streamlit as st
 
 
-# modelType = 'OpenAI'
-modelType = 'huggingface'
+modelType = 'OpenAI'
+# modelType = 'huggingface'
 
 # with st.sidebar:
 #     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
@@ -78,13 +78,13 @@ if prompt := st.chat_input():
     #     st.stop()
 
 
-
+ 
 
     st.session_state["messages"].append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
 
     if modelType == 'OpenAI':
-        response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state["messages"])
+        response = client.chat.completions.create(model="gpt-4o", messages=st.session_state["messages"])
         msg = response.choices[0].message.content
     elif modelType == 'huggingface':
         stream = client.chat.completions.create(
@@ -100,7 +100,7 @@ if prompt := st.chat_input():
 
         msg = ''.join(msg)
 
-  
+
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
 
