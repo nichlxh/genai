@@ -8,3 +8,5 @@ openai ==1.53.0
 requests == 2.32.3
 langchain 
 langchain-openai
+langchain-community 
+langchain-chroma
