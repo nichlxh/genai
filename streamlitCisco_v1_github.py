@@ -2,6 +2,11 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
+
+
+langSmithKey = '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'
+
+
 st.set_page_config(page_title="Chatbot", layout="wide")
 
 st.markdown("""
@@ -20,8 +25,8 @@ st.markdown("""
 from openai import OpenAI
 import streamlit as st
 
-
-modelType = 'OpenAI'
+modelType = 'langchain_OpenAI'
+# modelType = 'OpenAI'
 # modelType = 'huggingface'
 
 # with st.sidebar:
@@ -33,8 +38,11 @@ modelType = 'OpenAI'
 #     # st.selectbox('Choose Model', ['GPT-4o', 'GPT-4o-mini', 'GPT-4', 'GPT-4o-mini' 'GPT-3.5-Turbo'])
 #     # st.selectbox('Choose Model', ['GPT-4o', 'GPT-4o-mini', 'GPT-4', 'GPT-4o-mini' 'GPT-3.5-Turbo'])
 #     st.button('Run Cisco Model Benchmarking')
+huggingFaceKey = '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'
+openai_api_key = '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'
+
 if modelType == 'huggingface':
-    huggingFaceKey = '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'
+
 
     client = OpenAI(
         base_url="https://api-inference.huggingface.co/v1/",
@@ -45,8 +53,47 @@ if modelType == 'huggingface':
 
 elif modelType == 'OpenAI':
 
-    openai_api_key = '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'
+
     client = OpenAI(api_key=openai_api_key)
+elif modelType == 'langchain_OpenAI':
+
+    import getpass
+    import os
+
+    os.environ["OPENAI_API_KEY"] = openai_api_key
+
+    from langchain_openai import ChatOpenAI
+
+    llm = ChatOpenAI(model="gpt-4o-mini")
+
+    import bs4
+    from langchain import hub
+    from langchain_chroma import Chroma
+    from langchain_community.document_loaders import WebBaseLoader
+    from langchain_core.output_parsers import StrOutputParser
+    from langchain_core.runnables import RunnablePassthrough
+    from langchain_openai import OpenAIEmbeddings
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+    # Load, chunk and index the contents of the blog.
+    loader = WebBaseLoader(
+        web_paths=("https://lilianweng.github.io/posts/2023-06-23-agent/",),
+        bs_kwargs=dict(
+            parse_only=bs4.SoupStrainer(
+                class_=("post-content", "post-title", "post-header")
+            )
+        ),
+    )
+    docs = loader.load()
+
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    splits = text_splitter.split_documents(docs)
+    vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings())
+
+    # Retrieve and generate using the relevant snippets of the blog.
+    retriever = vectorstore.as_retriever()
+
+
 
 st.title("💬 Chatbot")
 st.caption("🚀 A Streamlit chatbot powered by OpenAI")
@@ -78,7 +125,7 @@ if prompt := st.chat_input():
     #     st.stop()
 
 
- 
+
 
     st.session_state["messages"].append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
@@ -100,6 +147,26 @@ if prompt := st.chat_input():
 
         msg = ''.join(msg)
 
+
+
+
+    elif modelType == 'langchain_OpenAI':
+        prompt_fixed = hub.pull("rlm/rag-prompt")
+
+
+
+        def format_docs(docs):
+            return "\n\n".join(doc.page_content for doc in docs)
+
+
+        rag_chain = (
+                {"context": retriever | format_docs, "question": RunnablePassthrough()}
+                | prompt_fixed
+                | llm
+                | StrOutputParser()
+        )
+
+        rag_chain.invoke("What is Task Decomposition?")
 
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
