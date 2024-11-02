@@ -20,6 +20,10 @@ st.markdown("""
 from openai import OpenAI
 import streamlit as st
 
+
+# modelType = 'OpenAI'
+modelType = 'huggingface'
+
 # with st.sidebar:
 #     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
 #     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
@@ -29,8 +33,20 @@ import streamlit as st
 #     # st.selectbox('Choose Model', ['GPT-4o', 'GPT-4o-mini', 'GPT-4', 'GPT-4o-mini' 'GPT-3.5-Turbo'])
 #     # st.selectbox('Choose Model', ['GPT-4o', 'GPT-4o-mini', 'GPT-4', 'GPT-4o-mini' 'GPT-3.5-Turbo'])
 #     st.button('Run Cisco Model Benchmarking')
+if modelType == 'huggingface':
+    huggingFaceKey = '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'
 
-openai_api_key = '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'
+    client = OpenAI(
+        base_url="https://api-inference.huggingface.co/v1/",
+        api_key=huggingFaceKey
+    )
+
+
+
+elif modelType == 'OpenAI':
+
+    openai_api_key = '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'
+    client = OpenAI(api_key=openai_api_key)
 
 st.title("💬 Chatbot")
 st.caption("🚀 A Streamlit chatbot powered by OpenAI")
@@ -61,10 +77,25 @@ if prompt := st.chat_input():
     #     st.info("Please add your OpenAI API key to continue.")
     #     st.stop()
 
-    client = OpenAI(api_key=openai_api_key)
+
+
+
     st.session_state["messages"].append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
-    response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state["messages"])
+
+    if modelType == 'OpenAI':
+        response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state["messages"])
+    elif modelType == 'huggingface':
+        response = client.chat.completions.create(
+            model="Qwen/Qwen2.5-72B-Instruct",
+            messages=st.session_state["messages"],
+            max_tokens=500,
+            stream=True
+        )
+
+        # for chunk in stream:
+        #     print(chunk.choices[0].delta.content)
+
     msg = response.choices[0].message.content
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
