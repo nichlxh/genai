@@ -85,18 +85,22 @@ if prompt := st.chat_input():
 
     if modelType == 'OpenAI':
         response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state["messages"])
+        msg = response.choices[0].message.content
     elif modelType == 'huggingface':
-        response = client.chat.completions.create(
+        stream = client.chat.completions.create(
             model="Qwen/Qwen2.5-72B-Instruct",
             messages=st.session_state["messages"],
             max_tokens=500,
             stream=True
         )
 
-        # for chunk in stream:
-        #     print(chunk.choices[0].delta.content)
+        msg = []
+        for chunk in stream:
+            msg.append(chunk.choices[0].delta.content)
 
-    msg = response.choices[0].message.content
+        msg = ' '.join(msg)
+
+
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
 
