@@ -98,9 +98,9 @@ if prompt := st.chat_input():
         for chunk in stream:
             msg.append(chunk.choices[0].delta.content)
 
-        msg = ' '.join(msg)
+        msg = ''.join(msg)
 
-
+  
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
 
