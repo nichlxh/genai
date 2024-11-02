@@ -90,7 +90,7 @@ if prompt := st.chat_input():
         stream = client.chat.completions.create(
             model="Qwen/Qwen2.5-72B-Instruct",
             messages=st.session_state["messages"],
-            max_tokens=500,
+            max_tokens=5000,
             stream=True
         )
 
