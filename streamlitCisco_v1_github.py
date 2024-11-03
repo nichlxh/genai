@@ -68,6 +68,8 @@ option = st.selectbox(
     "Current LLM (switchable):",
     ("GPT-4o","GPT-4", "o1-Preview", "o1-Mini","Qwen2.5-72B-Instruct", "Meta-Llama-3-8B-Instruct (Unstable)"),index=0
 )
+if 'Meta' in option:
+    option = option.replace(' (Unstable)','')
 
 modelSource=''
 if option in ["GPT-4o","GPT-4", "o1-Preview", "o1-Mini"]:
