@@ -204,7 +204,7 @@ if prompt := st.chat_input():
             model=modelFullName,
             messages=finalContextPrompt,
             max_tokens=5000 ,
-            stream=False
+            stream=True
         )
 
         msg = []
