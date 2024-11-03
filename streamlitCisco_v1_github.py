@@ -66,7 +66,7 @@ vectorstore = InMemoryVectorStore.from_documents(
 # "Mistral-7B-Instruct-v0.3"
 option = st.selectbox(
     "Current LLM (switchable):",
-    ("GPT-4o","GPT-4", "o1-Preview", "o1-Mini","Meta-Llama-3-8B-Instruct","Qwen2.5-72B-Instruct"),index=0
+    ("GPT-4o","GPT-4", "o1-Preview", "o1-Mini","Qwen2.5-72B-Instruct", "Meta-Llama-3-8B-Instruct (Unstable)"),index=0
 )
 
 modelSource=''
