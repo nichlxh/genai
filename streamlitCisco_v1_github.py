@@ -187,7 +187,7 @@ if prompt := st.chat_input():
         stream = client.chat.completions.create(
             model=modelFullName,
             messages=finalContextPrompt,
-            max_tokens=2000 ,
+            max_tokens=5000 ,
             stream=True
         )
 
