@@ -11,3 +11,4 @@ langchain-openai==0.2.5
 langchain-community==0.3.5
 langchain-chroma==0.1.4
 beautifulsoup4==4.12.3
+chromadb==0.5.13
