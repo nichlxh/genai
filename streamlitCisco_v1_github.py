@@ -137,7 +137,7 @@ else:
 # if there is input to chat window (st.chat_input()), assign it to variable prompt,
 # which would be a local variable like prompt = ...
 
-if prompt := st.chat_input():
+if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
     # if not openai_api_key:
     #     st.info("Please add your OpenAI API key to continue.")
     #     st.stop()
