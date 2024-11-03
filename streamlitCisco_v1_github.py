@@ -63,10 +63,10 @@ vectorstore = InMemoryVectorStore.from_documents(
 # def reset_conversation(st):
 #   st.session_state.messages = []
 
-
+# "Mistral-7B-Instruct-v0.3"
 option = st.selectbox(
     "Current LLM (switchable):",
-    ("GPT-4o","GPT-4", "o1-Preview", "o1-Mini","Meta-Llama-3-8B-Instruct","Mistral-7B-Instruct-v0.3","Qwen2.5-72B-Instruct"),index=0
+    ("GPT-4o","GPT-4", "o1-Preview", "o1-Mini","Meta-Llama-3-8B-Instruct","Qwen2.5-72B-Instruct"),index=0
 )
 
 modelSource=''
@@ -114,14 +114,23 @@ elif modelSource=='openAI':
 
 
 # initliaze
-if "messages" not in st.session_state:
+# if "messages" not in st.session_state:
 
 # if len(st.session_state.messages) == 0:
-    st.session_state["messages"] = [{"role": "assistant", "content": "Welcome! How may I help you?"}]
+#     st.session_state["messages"] = [{"role": "assistant", "content": "Welcome! How may I help you?"}]
+#     st.session_state["messages"] = [{}]
 
+
+# ** IMPORTANT, in general, the flow should always be Optional System/User/Assistant/User/Assistant....
+# ** below is needed, as streamlit refreshes everytime when LLM replies etc, hence, it has to reprint everything in st.chat_message
 # write out to the chat window where necessary, such as how are you.
-for msg in st.session_state["messages"]:
-    st.chat_message(msg["role"]).write(msg["content"])
+if "messages"  in st.session_state:
+    st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
+    for msg in st.session_state["messages"]:
+        st.chat_message(msg["role"]).write(msg["content"])
+else:
+    st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
+
 
 # loops on streamlit and triggers when input is received.
 # walrus operator := that allows inline assignment of variable + condition checking.
@@ -133,6 +142,11 @@ if prompt := st.chat_input():
     #     st.info("Please add your OpenAI API key to continue.")
     #     st.stop()
 
+    # ** as there is guaranteed an initial prompt here by the user, we can initilize here instead.
+    if "messages" not in st.session_state:
+        st.session_state["messages"] =  [{"role": "user", "content": prompt}]
+    else:
+        st.session_state["messages"].append({"role": "user", "content": prompt})
 
     st.chat_message("user").write(prompt)
 
@@ -159,7 +173,8 @@ if prompt := st.chat_input():
     contextPrompt += 'Try to leverage all of the contexts for the answer where possible.'
     contextPrompt += 'However, if you feel any or all of the contexts in the context list are not helpful or relevant enough to assist you in the building of the answer, then you can ignore them.'
     contextPrompt += 'Note that you do not need to explain yourself if you exclude any context that is not helpful. You should also directly reply to the prompt.'
-    contextPrompt += 'Prompt: \n'  + prompt + '\n\n'
+    contextPrompt += 'While you need to include citations, you do not need to include the reference list or context list sections.'
+    contextPrompt += '\n\nPrompt: \n'  + prompt + '\n\n'
     contextPrompt += 'Context List: \n' + contextList + '\n'
 
     # add role and format
@@ -167,7 +182,8 @@ if prompt := st.chat_input():
     # however, in terms of the actual chat history, we instead retain the "actual" chat history with the user prompt (no context list).
     excludeLatestPromptHistory= st.session_state["messages"][:-1]
     finalContextPrompt = excludeLatestPromptHistory + [{"role": "user", "content":  contextPrompt}]
-
+    # st.write (st.session_state["messages"])
+    # st.write(st.session_state["messages"][:-1])
     if modelSource=='openAI':
         response = client.chat.completions.create(model=option.lower(), messages=finalContextPrompt)
         msg = response.choices[0].message.content
@@ -187,7 +203,7 @@ if prompt := st.chat_input():
         stream = client.chat.completions.create(
             model=modelFullName,
             messages=finalContextPrompt,
-            max_tokens=5000 ,
+            max_tokens=2000 ,
             stream=True
         )
 
@@ -196,6 +212,12 @@ if prompt := st.chat_input():
             msg.append(chunk.choices[0].delta.content)
 
         msg = ''.join(msg)
+
+
+    # if LLM no make response, we put a place holder reply otherwise it will show as empty
+    # further chats can still be made.
+    if msg=='':
+        msg = 'Sorry, I do not have a response. Please try another prompt.'
 
 
 
@@ -226,7 +248,7 @@ if prompt := st.chat_input():
         msg += '\n\n**Retrieved Context List:** \n\n' + outputContextList + '\n'
 
     # do this at the end to prevent error in not alternating user and assistant.
-    st.session_state["messages"].append({"role": "user", "content": prompt})
+
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
 
