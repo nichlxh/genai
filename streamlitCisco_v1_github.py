@@ -63,11 +63,17 @@ vectorstore = InMemoryVectorStore.from_documents(
 # def reset_conversation(st):
 #   st.session_state.messages = []
 
+
 option = st.selectbox(
-    "Current LLM:",
-    ("GPT-4o", "Qwen2.5-72B-Instruct"),index=0
+    "Current LLM (switchable):",
+    ("GPT-4o","GPT-4", "o1-Preview", "o1-Mini","Meta-Llama-3-8B-Instruct","Mistral-7B-Instruct-v0.3","Qwen2.5-72B-Instruct"),index=0
 )
 
+modelSource=''
+if option in ["GPT-4o","GPT-4", "o1-Preview", "o1-Mini"]:
+    modelSource='openAI'
+else:
+    modelSource='huggingFace'
 
 # if option=='GPT-4o':
 #     modelType = 'RAG_OpenAI'
@@ -86,7 +92,7 @@ option = st.selectbox(
 #     st.button('Run Cisco Model Benchmarking')
 
 
-if option == 'Qwen2.5-72B-Instruct':
+if modelSource=='huggingFace':
 
 
     client = OpenAI(
@@ -95,7 +101,7 @@ if option == 'Qwen2.5-72B-Instruct':
     )
 
 
-elif option == 'GPT-4o':
+elif modelSource=='openAI':
     client = OpenAI(api_key=openai_api_key)
 
 
@@ -127,7 +133,7 @@ if prompt := st.chat_input():
     #     st.info("Please add your OpenAI API key to continue.")
     #     st.stop()
 
-    st.session_state["messages"].append({"role": "user", "content": prompt})
+
     st.chat_message("user").write(prompt)
 
     # compute top K chunk to CURRENT prompt (exclude history)
@@ -162,14 +168,26 @@ if prompt := st.chat_input():
     excludeLatestPromptHistory= st.session_state["messages"][:-1]
     finalContextPrompt = excludeLatestPromptHistory + [{"role": "user", "content":  contextPrompt}]
 
-    if option == 'GPT-4o':
-        response = client.chat.completions.create(model="gpt-4o", messages=finalContextPrompt)
+    if modelSource=='openAI':
+        response = client.chat.completions.create(model=option.lower(), messages=finalContextPrompt)
         msg = response.choices[0].message.content
-    elif option == 'Qwen2.5-72B-Instruct':
+    elif modelSource=='huggingFace':
+
+        # if optionption in ["Meta-Llama-3-70B-Instruct","gemma-2-27b-it", "Phi-3-mini-128k-instruct","Qwen2.5-72B-Instruct"]:
+
+        model2prefix = {'Meta-Llama-3-8B-Instruct': 'meta-llama/',
+                        'Phi-3-mini-4k-instruct': 'microsoft/',
+                        'Qwen2.5-72B-Instruct': 'Qwen/',
+                        'gemma-2-2b-it': 'google/',
+                        'Mistral-7B-Instruct-v0.3': 'mistralai/'}
+
+        prefix = model2prefix[option]
+        modelFullName = prefix + option
+
         stream = client.chat.completions.create(
-            model="Qwen/Qwen2.5-72B-Instruct",
+            model=modelFullName,
             messages=finalContextPrompt,
-            max_tokens=5000,
+            max_tokens=2000 ,
             stream=True
         )
 
@@ -207,6 +225,8 @@ if prompt := st.chat_input():
     if outputContextList!='': #if no retreieved then skip
         msg += '\n\n**Retrieved Context List:** \n\n' + outputContextList + '\n'
 
+    # do this at the end to prevent error in not alternating user and assistant.
+    st.session_state["messages"].append({"role": "user", "content": prompt})
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
 
