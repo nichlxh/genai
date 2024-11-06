@@ -33,6 +33,16 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+import time
+
+
+def stream_data():
+    for word in msg:
+        yield word
+        time.sleep(0.04)
+
+
+
 
 
 os.environ["OPENAI_API_KEY"] = openai_api_key
@@ -127,12 +137,17 @@ elif modelSource=='openAI':
 # ** below is needed, as streamlit refreshes everytime when LLM replies etc, hence, it has to reprint everything in st.chat_message
 # write out to the chat window where necessary, such as how are you.
 if "messages"  in st.session_state:
-    st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
+    with st.chat_message("assistant"):
+        st.write_stream('Welcome! How may I help you?')
+    # st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
     for msg in st.session_state["messages"]:
-        st.chat_message(msg["role"]).write(msg["content"])
+        # st.chat_message(msg["role"]).write(msg["content"])
+        with st.chat_message(msg["role"]):
+            st.write_stream(msg["content"])
 else:
-    st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
-
+    # st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
+    with st.chat_message("assistant"):
+        st.write_stream('Welcome! How may I help you?')
 
 # loops on streamlit and triggers when input is received.
 # walrus operator := that allows inline assignment of variable + condition checking.
@@ -150,7 +165,9 @@ if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
     else:
         st.session_state["messages"].append({"role": "user", "content": prompt})
 
-    st.chat_message("user").write(prompt)
+    # st.chat_message("user").write(prompt)
+    with st.chat_message("user"):
+        st.write_stream(prompt)
 
     # compute top K chunk to CURRENT prompt (exclude history)
     topK = vectorstore.similarity_search_with_score(prompt)
@@ -253,16 +270,9 @@ if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
 
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     # st.chat_message("assistant").write(msg)
-
-    import time
-
-    def stream_data():
-        for word in msg:
-            yield word
-            time.sleep(0.02)
-
     with st.chat_message("assistant"):
         st.write_stream(stream_data)
+
 
 
     # prints the chat window
