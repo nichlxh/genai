@@ -139,9 +139,9 @@ elif modelSource=='openAI':
 
 welcomeMessage = 'Welcome! How may I help you?'
 if "messages"  in st.session_state:
-    with st.chat_message("assistant"):
+    # with st.chat_message("assistant"):
         # st.write_stream(stream_data(welcomeMessage))
-        st.chat_message("assistant").write(welcomeMessage)  # only for printing, not stored in memory.
+    st.chat_message("assistant").write(welcomeMessage)  # only for printing, not stored in memory.
     for msg in st.session_state["messages"]:
         st.chat_message(msg["role"]).write(msg["content"])
         # with st.chat_message(msg["role"]):
