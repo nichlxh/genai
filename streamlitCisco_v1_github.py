@@ -39,7 +39,7 @@ import time
 def stream_data(msg):
     for char in msg:
         yield char
-        time.sleep(0.02)
+        time.sleep(0.01)
 
 
 
@@ -164,6 +164,8 @@ if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
     # ** as there is guaranteed an initial prompt here by the user, we can initilize here instead.
     if "messages" not in st.session_state:
         st.session_state["messages"] =  [{"role": "user", "content": prompt}]
+
+        st.session_state["messages"]
     else:
         st.session_state["messages"].append({"role": "user", "content": prompt})
 
