@@ -254,6 +254,10 @@ if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
 
+    with st.chat_message("assistant"):
+
+        st.write_stream(msg)
+
     # prints the chat window
     # st.session_state["messages"]
     # st.session_state["messages"][0:1]
