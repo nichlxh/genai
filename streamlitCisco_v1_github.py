@@ -124,10 +124,15 @@ elif modelSource=='openAI':
 # which is used to store the conversation history.
 # e.g. st.session_state["messages"] [0] is the 1st msg etc.
 
-
+welcomeMessage = 'Welcome! How may I help you?'
 # initliaze
-# if "messages" not in st.session_state:
-
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [{"role": "assistant", "content": welcomeMessage}]
+    with st.chat_message("assistant"):
+        st.write_stream(stream_data(welcomeMessage))
+else:
+    for msg in st.session_state["messages"]:
+        st.chat_message(msg["role"]).write(msg["content"])
 # if len(st.session_state.messages) == 0:
 #     st.session_state["messages"] = [{"role": "assistant", "content": "Welcome! How may I help you?"}]
 #     st.session_state["messages"] = [{}]
@@ -137,19 +142,18 @@ elif modelSource=='openAI':
 # ** below is needed, as streamlit refreshes everytime when LLM replies etc, hence, it has to reprint everything in st.chat_message
 # write out to the chat window where necessary, such as how are you.
 
-welcomeMessage = 'Welcome! How may I help you?'
-if "messages"  in st.session_state:
+
+# if "messages"  in st.session_state:
     # with st.chat_message("assistant"):
         # st.write_stream(stream_data(welcomeMessage))
-    st.chat_message("assistant").write(welcomeMessage)  # only for printing, not stored in memory.
-    for msg in st.session_state["messages"]:
-        st.chat_message(msg["role"]).write(msg["content"])
+    # st.chat_message("assistant").write(welcomeMessage)  # only for printing, not stored in memory.
+
         # with st.chat_message(msg["role"]):
         #     st.write_stream(stream_data(msg["content"]))
-else:
+# else:
     # st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
-    with st.chat_message("assistant"):
-        st.write_stream(stream_data(welcomeMessage))
+    # with st.chat_message("assistant"):
+    #     st.write_stream(stream_data(welcomeMessage))
 
 # loops on streamlit and triggers when input is received.
 # walrus operator := that allows inline assignment of variable + condition checking.
