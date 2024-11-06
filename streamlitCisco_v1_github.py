@@ -39,7 +39,7 @@ import time
 def stream_data(msg):
     for char in msg:
         yield char
-        time.sleep(0.04)
+        time.sleep(0.02)
 
 
 
@@ -140,12 +140,12 @@ elif modelSource=='openAI':
 welcomeMessage = 'Welcome! How may I help you?'
 if "messages"  in st.session_state:
     with st.chat_message("assistant"):
-        st.write_stream(stream_data(welcomeMessage))
-    # st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
+       # st.write_stream(stream_data(welcomeMessage))
+    st.chat_message("assistant").write(welcomeMessage)  # only for printing, not stored in memory.
     for msg in st.session_state["messages"]:
-        # st.chat_message(msg["role"]).write(msg["content"])
-        with st.chat_message(msg["role"]):
-            st.write_stream(stream_data(msg["content"]))
+        st.chat_message(msg["role"]).write(msg["content"])
+        # with st.chat_message(msg["role"]):
+        #     st.write_stream(stream_data(msg["content"]))
 else:
     # st.chat_message("assistant").write('Welcome! How may I help you?')  # only for printing, not stored in memory.
     with st.chat_message("assistant"):
