@@ -252,11 +252,18 @@ if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
     # do this at the end to prevent error in not alternating user and assistant.
 
     st.session_state["messages"].append({"role": "assistant", "content": msg})
-    st.chat_message("assistant").write(msg)
+    # st.chat_message("assistant").write(msg)
+
+    import time
+
+    def stream_data():
+        for word in msg:
+            yield word
+            time.sleep(0.02)
 
     with st.chat_message("assistant"):
+        st.write_stream(stream_data)
 
-        st.write_stream(msg)
 
     # prints the chat window
     # st.session_state["messages"]
