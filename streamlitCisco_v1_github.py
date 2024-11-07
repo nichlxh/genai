@@ -6,12 +6,68 @@ from openai import OpenAI
 import streamlit as st
 import getpass
 import os
+import sys
 from langchain_openai import ChatOpenAI
 from langchain_core.vectorstores import InMemoryVectorStore
 
-langSmithKey = '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'
-huggingFaceKey = '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'
-openai_api_key = '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'
+try:
+    dir = 'C:/Users/e0045287/OneDrive - National University of Singapore/genAI_project/pythonProject'
+    os.chdir(dir)
+    sys.path.append(dir)
+except:
+    dir = '/Users/nicholaslim/Library/CloudStorage/OneDrive-NationalUniversityofSingapore/genAI_project/pythonProject'
+    os.chdir(dir)
+    sys.path.append(dir)
+
+
+
+dataDir = 'data'
+
+
+# from pypdf import PdfReader
+import pymupdf # imports the pymupdf library
+
+pdf2text = {}
+
+for eachPDF in os.listdir(dataDir):
+    # reader = PdfReader(dataDir + '/' + eachPDF)
+    doc = pymupdf.open(dataDir + '/' + eachPDF)  # open a document
+
+    allPageText = ''
+    for page in doc:  # iterate the document pages
+        text = page.get_text()  # get plain text encoded as UTF-8
+        allPageText += text + '\n'
+    pdf2text[eachPDF] = allPageText
+
+pdf2textLink = {'ANNEX B-1 - ASSURANCE PACKAGE ENHANCEMENTS.pdf': 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexb1.pdf' ,
+'ANNEX B-2 - ENTERPRISE SUPPORT PACKAGE.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexb2.pdf',
+'ANNEX C-1 - REFUNDABLE INVESTMENT CREDIT.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexc1.pdf',
+'ANNEX C-2 - ENERGY EFFICIENCY GRANT.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexc2.pdf',
+'ANNEX D-1 - SKILLSFUTURE LEVEL-UP PROGRAMME.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexd1.pdf',
+'ANNEX E-1 - UPLIFTING LOWER-WAGE WORKERS.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexe1.pdf',
+'ANNEX E-2 - COMLINK+ PROGRESS PACKAGES.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexe2.pdf',
+'ANNEX F-1 - STRENGTHENING AND RATIONALISING OUR RETIREMENT SYSTEM.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexf1.pdf',
+'ANNEX F-2 - MAJULAH PACKAGE.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexf2.pdf',
+'ANNEX F-3 - ONE-TIME MEDISAVE BONUS.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexf3.pdf',
+'ANNEX F-4 - ENHANCEMENTS TO SUBSIDY SCHEMES FOR HEALTHCARE AND ASSOCIATED SOCIAL SUPPORT.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexf4.pdf',
+'ANNEX G-1 - NATIONAL SERVICE LIFESG CREDITS.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexg1.pdf',
+'ANNEX G-2 - OVERSEAS HUMANITARIAN ASSISTANCE TAX DEDUCTION SCHEME.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexg2.pdf',
+'ANNEX H-1 - TAX CHANGES.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexh1.pdf',
+'ANNEX H-2 - FISCAL POSITION FOR FY2024.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexh2.pdf',
+'ANNEX I-1 - EXAMPLES FOR BUDGET 2024 STATEMENT.pdf' : 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/annexi1.pdf',
+'Budget_Support_For_Households.pdf' : 'https://www.mof.gov.sg/singaporebudget/resources/support-for-households',
+'fy2024_budget_debate_round_up_speech.pdf' : 'https://www.mof.gov.sg/singaporebudget/budget-2024/budget-debate-round-up-speech',
+'fy2024_budget_statement.pdf': 'https://www.mof.gov.sg/singaporebudget/budget-2024/budget-statement'}
+
+    # number_of_pages = len(reader.pages)
+    # allPageText = ''
+    # for eachPageNum in range(number_of_pages):
+    #     page = reader.pages[eachPageNum]
+    #
+    #     text = page.extract_text()
+    #     allPageText += text + '\n'
+    # pdf2text[eachPDF] = allPageText
+
 
 
 
@@ -45,47 +101,62 @@ def stream_data(msg):
 
 
 
-os.environ["OPENAI_API_KEY"] = openai_api_key
 
 
 
 
-
-# Load, chunk and index the contents of the blog.
-loader = WebBaseLoader(
-    web_paths=("https://lilianweng.github.io/posts/2023-06-23-agent/",),
-    bs_kwargs=dict(
-        parse_only=bs4.SoupStrainer(
-            class_=("post-content", "post-title", "post-header")
-        )
-    ),
-)
-docs = loader.load()
+# website = "https://lilianweng.github.io/posts/2023-06-23-agent/"
+# # website = 'https://www.mof.gov.sg/singaporebudget/resources/support-for-households'
+# # Load, chunk and index the contents of the blog.
+# loader = WebBaseLoader(
+#     # web_paths=("https://lilianweng.github.io/posts/2023-06-23-agent/",),
+#     web_paths=(website,),
+#     bs_kwargs=dict(
+#         parse_only=bs4.SoupStrainer(
+#             class_=("post-content", "post-title", "post-header")
+#         )
+#     ),
+# )
+# docs = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-splits = text_splitter.split_documents(docs)
 
+# for k,v in pdf2text.items():
+
+
+# create docs from list
+allDocContent = list(pdf2text.values())
+
+allDocSource = list(pdf2text.keys())
+metaDataSource =[]
+for eachDoc in allDocSource:
+    metaDataSource.append({'source' : eachDoc,
+                           'link': pdf2textLink[eachDoc]})
+
+texts = text_splitter.create_documents(allDocContent, metaDataSource)
+splits = text_splitter.split_documents(texts)
+
+# print(splits[8].page_content)
 
 
 vectorstore = InMemoryVectorStore.from_documents(
-    documents=splits, embedding=OpenAIEmbeddings()
-)
+    documents=splits, embedding=OpenAIEmbeddings() )
 # def reset_conversation(st):
 #   st.session_state.messages = []
 
 # "Mistral-7B-Instruct-v0.3"
-option = st.selectbox(
-    "Current LLM (switchable):",
-    ("GPT-4o","GPT-4", "o1-Preview", "o1-Mini","Qwen2.5-72B-Instruct", "Meta-Llama-3-8B-Instruct (Unstable)"),index=0
-)
-if 'Meta' in option:
-    option = option.replace(' (Unstable)','')
-
-modelSource=''
-if option in ["GPT-4o","GPT-4", "o1-Preview", "o1-Mini"]:
-    modelSource='openAI'
-else:
-    modelSource='huggingFace'
+# option = st.selectbox(
+#     "Current LLM (switchable):",
+#     ("GPT-4o","GPT-4", "o1-Preview", "o1-Mini","Qwen2.5-72B-Instruct", "Meta-Llama-3-8B-Instruct (Unstable)"),index=0
+# )
+# if 'Meta' in option:
+#     option = option.replace(' (Unstable)','')
+#
+# modelSource=''
+# if option in ["GPT-4o","GPT-4", "o1-Preview", "o1-Mini"]:
+#     modelSource='openAI'
+# else:
+#     modelSource='huggingFace'
 
 # if option=='GPT-4o':
 #     modelType = 'RAG_OpenAI'
@@ -104,17 +175,17 @@ else:
 #     st.button('Run Cisco Model Benchmarking')
 
 
-if modelSource=='huggingFace':
+# if modelSource=='huggingFace':
+#
+#
+#     client = OpenAI(
+#         base_url="https://api-inference.huggingface.co/v1/",
+#         api_key=huggingFaceKey
+#     )
 
 
-    client = OpenAI(
-        base_url="https://api-inference.huggingface.co/v1/",
-        api_key=huggingFaceKey
-    )
-
-
-elif modelSource=='openAI':
-    client = OpenAI(api_key=openai_api_key)
+# elif modelSource=='openAI':
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 
 # st.session_state["messages"] is a list of dict
@@ -160,7 +231,7 @@ else:
 # if there is input to chat window (st.chat_input()), assign it to variable prompt,
 # which would be a local variable like prompt = ...
 
-if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
+if prompt := st.chat_input(placeholder="Am I eligible for the Majulah Package?"):
     # if not openai_api_key:
     #     st.info("Please add your OpenAI API key to continue.")
     #     st.stop()
@@ -190,10 +261,17 @@ if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
     contextList=''
     for index, eachChunk in enumerate(filteredTopK):
         content = eachChunk[0].page_content
+        sourceFile = eachChunk[0].metadata['source']
+        link = eachChunk[0].metadata['link']
         # clean the content abit
         content = content.replace('\n',' ')
+
+        # we did not include source file here as it is not necessary.
         contextList += '[' + str(index+1) + '] ' + content + '\n\n'
-        contextListDict[index+1] = content
+        # for later reference
+        contextListDict[index+1] = (sourceFile,content, link)
+
+    # need to bucket by source fo the  rag content, so that multiple chunk citation, will go to a single doc!
 
     # to ask GPT
     contextPrompt = 'Given the below (a) user prompt and (b) context list sections, answer the prompt by citing the contents in context list, where the citation should be in the format of e.g. [1], [2], [1,2]'
@@ -211,35 +289,9 @@ if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
     finalContextPrompt = excludeLatestPromptHistory + [{"role": "user", "content":  contextPrompt}]
     # st.write (st.session_state["messages"])
     # st.write(st.session_state["messages"][:-1])
-    if modelSource=='openAI':
-        response = client.chat.completions.create(model=option.lower(), messages=finalContextPrompt)
-        msg = response.choices[0].message.content
-    elif modelSource=='huggingFace':
-
-        # if optionption in ["Meta-Llama-3-70B-Instruct","gemma-2-27b-it", "Phi-3-mini-128k-instruct","Qwen2.5-72B-Instruct"]:
-
-        model2prefix = {'Meta-Llama-3-8B-Instruct': 'meta-llama/',
-                        'Phi-3-mini-4k-instruct': 'microsoft/',
-                        'Qwen2.5-72B-Instruct': 'Qwen/',
-                        'gemma-2-2b-it': 'google/',
-                        'Mistral-7B-Instruct-v0.3': 'mistralai/'}
-
-        prefix = model2prefix[option]
-        modelFullName = prefix + option
-
-        stream = client.chat.completions.create(
-            model=modelFullName,
-            messages=finalContextPrompt,
-            max_tokens=5000 ,
-            stream=True
-        )
-
-        msg = []
-        for chunk in stream:
-            msg.append(chunk.choices[0].delta.content)
-
-        msg = ''.join(msg)
-
+    # if modelSource=='openAI':
+    response = client.chat.completions.create(model='gpt-4o', messages=finalContextPrompt)
+    msg = response.choices[0].message.content
 
     # if LLM no make response, we put a place holder reply otherwise it will show as empty
     # further chats can still be made.
@@ -267,14 +319,28 @@ if prompt := st.chat_input(placeholder="What is chain-of-thought?"):
     outputContextList = ''
     for  eachContextID in numbers:
         if eachContextID in contextListDict:
-            outputContextList += '[' + str(eachContextID) + '] ' + contextListDict[eachContextID] + '\n\n'''
+            sourceFileName = contextListDict[eachContextID][0]
+            # remove pdf format
+            sourceFileName = sourceFileName.replace('.pdf','')
+            # content = contextListDict[eachContextID][1]
+            # url = pdf2textLink[sourceFileName]
+            link = contextListDict[eachContextID][2]
+            # outputContextList += '[' + str(eachContextID) + '] [' + sourceFileName + '](%s)' % link +  '\n\n'''
+            outputContextList += '[' + str(eachContextID) + '] ' + sourceFileName + ': ' + link + '\n\n'''
+            # st.write("check out this [link](%s)" % url)
         # if '[' +eachContextID in outputContextList:
 
-
+    # link = 'https://www.mof.gov.sg/docs/librariesprovider3/budget2024/download/pdf/fy2024_budget_debate_round_up_speech.pdf'
     if outputContextList!='': #if no retreieved then skip
-        msg += '\n\n**Retrieved Context List:** \n\n' + outputContextList + '\n'
-
+        msg += '\n\n**References:** \n\n' + '' + outputContextList + ''+ '\n'
+        # msg +=  '\n\n[fy2024_budget_debate_round_up_speech.pdf](%s)' %link +'\n\n'+'\n\n**References:** \n\n' + '' + outputContextList + '' + '\n'
+    # to add doc names
+    # st.write("check out this [link](%s)" % url)
     # do this at the end to prevent error in not alternating user and assistant.
+
+    # final cleaning for presentation
+    msg = msg.replace('$', '\$')
+
 
     st.session_state["messages"].append({"role": "assistant", "content": msg})
     # st.chat_message("assistant").write(msg)
