@@ -9,14 +9,7 @@ import sys
 from langchain_openai import ChatOpenAI
 from langchain_core.vectorstores import InMemoryVectorStore
 
-try:
-    dir = 'C:/Users/e0045287/OneDrive - National University of Singapore/genAI_project/pythonProject'
-    os.chdir(dir)
-    sys.path.append(dir)
-except:
-    dir = '/Users/nicholaslim/Library/CloudStorage/OneDrive-NationalUniversityofSingapore/genAI_project/pythonProject'
-    os.chdir(dir)
-    sys.path.append(dir)
+
 
 
 
