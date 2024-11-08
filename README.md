@@ -1,6 +1,17 @@
 # Singapore Budget 2024 Chatbot 
-This repo shares the approach for the RAG-powered Chatbot, focusing on the Singapore Budget 2024. 
-### Deployment Guide 
+This repository shares the approach for the RAG-powered Chatbot, focusing on the Singapore Budget 2024. 
+
+#### Deployment Guide:
+
+- Cloud Hosted: https://htxdigital-poc.streamlit.app/
+- Docker:
+  1) Download the Dockerfile in the repository.
+  2) Run the below command within the same directory of the downloaded DockerFile to build the `streamlit` image.
+     - `docker build --no-cache -t streamlit . -f dockerFile` 
+  4) Run the command below to run the image (please input your `OPENAI_API_KEY`):
+     - `docker run -e OPENAI_API_KEY='' -p 8501:8501 streamlit `
+  5) Enter `https://0.0.0.0:8501` on browser to view the Streamlit interface.
+
 
 ## Approach 
 With the rising interest in Agentic LLMs, such as [Autogen](https://microsoft.github.io/autogen/), where it deploys a Multi-Agent Conversation Framework for agents of different roles to collaboratively solve a real-world problem, my approach to the assessment takes inspiration from this research direction. Although my approach does not involve the use of multi-turn Agent-Agent conversations in [Autogen](https://microsoft.github.io/autogen/), I have instead, used a total of $4$ agents of different roles, collaborating to generate the text output. As per the above figure, the $4$ agents span across: 
@@ -11,14 +22,14 @@ With the rising interest in Agentic LLMs, such as [Autogen](https://microsoft.gi
 
 In the following short sections, I will share more about the system developed, with the goal of providing an intuition of how each component is deployed.
 
-### Data
+#### Data
 ![Dataset](https://github.com/nichlxh/genai/blob/main/images/data.png?raw=True)
-### List of Prompts
-### Input and Output Guardrail Agent
+#### List of Prompts
+#### Input and Output Guardrail Agent
 
-### History-aware Rephrasing Agent
-### Retrieval Filtering Agent
-### Main Conversation Agent
-### Citation Processing
+#### History-aware Rephrasing Agent
+#### Retrieval Filtering Agent
+#### Main Conversation Agent
+#### Citation Processing
 
 
