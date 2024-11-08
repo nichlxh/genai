@@ -10,6 +10,7 @@ With the rising interest in Agentic LLMs, such as [Autogen](https://microsoft.gi
 In the following short sections, I will share more about the system developed, with the goal of providing an intuition of how each component is deployed.
 
 ## Data
+![Dataset](https://github.com/[nichlxh]/[genai]/blob/[branch]/image.jpg?raw=true)
 ## Input and Output Guardrail Agent
 
 ## History-aware Rephrasing Agent
