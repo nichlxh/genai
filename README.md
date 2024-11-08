@@ -5,7 +5,7 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
 
 - Cloud Hosted: https://htxdigital-poc.streamlit.app/
 - Docker:
-  1) Download the Dockerfile in the repository.
+  1) Download the Dockerfile in the repository `app/DockerFile`.
   2) Run the below command within the same directory of the downloaded DockerFile to build the `streamlit` image.
      - `docker build --no-cache -t streamlit . -f dockerFile` 
   4) Run the command below to run the image (please input your `OPENAI_API_KEY`):
