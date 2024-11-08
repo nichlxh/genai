@@ -49,9 +49,11 @@ For simplicity, I have downloaded the PDF files offline and parsed them as input
 ---
 
 #### Main Conversation Agent:
+
 ---
 
 #### Citation Processing:
+##### References Integrity
 ---
 
 #### Chunking Strategies:
