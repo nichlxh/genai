@@ -7,7 +7,7 @@ With the rising interest in Agentic LLMs, such as [Autogen](https://microsoft.gi
 3. Retrieval Filtering Agent
 4. Main Conversation Agent
 
-In the following short sections, I will share more about the system developed, with the goal to provide an intuition of how each component is deployed.
+In the following short sections, I will share more about the system developed, with the goal of providing an intuition of how each component is deployed.
 
 ## Input and Output Guardrail Agent
 
