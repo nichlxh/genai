@@ -9,11 +9,11 @@ With the rising interest in Agentic LLMs, such as [Autogen](https://microsoft.gi
 
 In the following short sections, I will share more about the system developed, with the goal to provide an intuition of how each component is deployed.
 
-### Input and Output Guardrail Agent
+## Input and Output Guardrail Agent
 
-### History-aware Rephrasing Agent
-### Retrieval Filtering Agent
-### Main Conversation Agent
+## History-aware Rephrasing Agent
+## Retrieval Filtering Agent
+##  Main Conversation Agent
 
 
 
