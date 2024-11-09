@@ -86,7 +86,6 @@ We see from the below system's outputs that it is effective in detecting safety 
 10. ![Prompt 10](https://github.com/nichlxh/genai/blob/main/images/p10.svg)
 ---
 
-
 #### History-aware Rephrasing (Agent):
 11. ![Prompt 11](https://github.com/nichlxh/genai/blob/main/images/p11.svg)
 
