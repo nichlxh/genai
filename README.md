@@ -14,6 +14,8 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
   5) Enter `https://0.0.0.0:8501` on browser to view the Streamlit interface.
 
 ---
+![Architecture 1](https://github.com/nichlxh/genai/blob/main/images/a1.svg?raw=True)
+
 #### Approach: 
 With the rising interest in Agentic LLMs, such as [Autogen](https://microsoft.github.io/autogen/), where it deploys a Multi-Agent Conversation Framework for agents of different roles to collaboratively solve a real-world problem, my approach to the assessment takes inspiration from this research direction. Although my approach does not involve the use of multi-turn Agent-Agent conversations in [Autogen](https://microsoft.github.io/autogen/), I have instead, used a total of $4$ agents of different roles, collaborating to generate the text output. As per the above figure, the $4$ agents span across: 
 1. **Input and Output Guardrail Agent:** Safeguards against (a) User Input and (b) Main Conversation Agent's output
@@ -45,22 +47,46 @@ Below is the list of all prompts tested (corresponding screenshot outputs will b
 3. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
 ---
 
-#### Input and Output Guardrail Agent:
+#### Input and Output Guardrails (Agent):
+4. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+6. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
 ---
 
-#### History-aware Rephrasing Agent:
+#### History-aware Rephrasing (Agent):
+8. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+9. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+10. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+11. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
 ---
 
-#### Retrieval Filtering Agent:
+#### Retrieval Filtering (Agent):
+12. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+13. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+14. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
 ---
 
-#### Main Conversation Agent:
+#### Main Conversation (Agent):
+15. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+16. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
 
 ---
 
 #### Citation Processing:
-##### References Integrity
+17. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+18. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+
+##### References Integrity:
+19. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+20. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+
 ---
 
 #### Chunking Strategies:
+21. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+22. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+23. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+
+
 ---
