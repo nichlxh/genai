@@ -178,7 +178,3 @@ As Semantic Chunker computes chunks by maximizing inter-chunk distances, this ma
 ---
 #### Thank you for reading!
 
-
----
-
-
