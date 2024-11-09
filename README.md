@@ -87,7 +87,7 @@ We see from the below system's outputs that it is effective in detecting safety 
 ---
 
 #### History-aware Rephrasing (Agent):
-11. 
+11. ![Prompt 11](https://github.com/nichlxh/genai/blob/main/images/p11.svg)
 
 We see that the history-aware rephrased prompt helps to add in the context of Coreference Resolution (CR), where *"it"* refers to the Majulah package (stated in the 1st user prompt of chat history).
 This rephrased prompt will more accurately retrieve the top K chunks for further use as it is used for similarity computations.
