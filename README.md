@@ -133,21 +133,40 @@ Specifically, features were done to ensure correctness for a better user experie
 
 #### Chunking Strategies
 
+We can use a user prompt of *"what about skill future?"* to compare the different chunkers.
+
+Due to space, I only show the top $K=1$ chunk for comparison. 
+
 ##### Character Chunker:
 
-![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/c1.svg)
+![chunk 1](https://github.com/nichlxh/genai/blob/main/images/c1.svg)
+
+With character chunker, the known problem is the abrupt cut of the chunk content, as can be seen above.
+
+However, the chunk is correctly retrieved in being relevant.
 
 ---
 
 ##### Recursive Character Chunker:
 
-![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/c2.svg)
+![chunk 2](https://github.com/nichlxh/genai/blob/main/images/c2.svg)
+
+
+Similarly, this chunker correctly extracts the relevant chunk. 
+
+As the recursive chunker first chunks by the separators in the document, we see that the above is a little shorter than the Character Chunker, as there is in fact a delimiter *"\n"* after the last word *"month"*. As the Character Chunker do not consider seperators directly, it was able to include slightly more content due to chunk size.
 
 ---
 
 ##### Semantic Chunker:
 
-![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/c3.svg)
+![chunk 3](https://github.com/nichlxh/genai/blob/main/images/c3.svg)
+
+We see that the retrieved chunk is not as relevant to the user prompt via Semantic Chunker.
+
+Possibly, this is because 
+
+
 
 ---
 
