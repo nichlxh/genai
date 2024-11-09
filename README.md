@@ -27,7 +27,7 @@ In the following short sections, I will share more about the system developed, w
 
 ---
 #### Data:
-![Dataset](https://github.com/nichlxh/genai/blob/main/images/data.svg?raw=True)
+![Dataset](https://github.com/nichlxh/genai/blob/main/images/data.svg)
 
 For simplicity, I have downloaded the PDF files offline and parsed them as input, accordingly chunking them and storing them in the vector database for RAG usage.
 
@@ -40,53 +40,53 @@ Below is the list of all prompts tested (corresponding screenshot outputs will b
 3. What are the Key reasons for high inflation over the last two years?
 4. 
 
-1. ![Prompt 1](https://github.com/nichlxh/genai/blob/main/images/p1.svg?raw=True)
+1. ![Prompt 1](https://github.com/nichlxh/genai/blob/main/images/p1.svg)
 ---
-2. ![Prompt 2](https://github.com/nichlxh/genai/blob/main/images/p2.svg?raw=True)
+2. ![Prompt 2](https://github.com/nichlxh/genai/blob/main/images/p2.svg)
 ---
-3. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+3. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 ---
 
 #### Input and Output Guardrails (Agent):
-4. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-6. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+4. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+6. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 ---
 
 #### History-aware Rephrasing (Agent):
-8. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-9. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-10. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-11. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+8. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+9. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+10. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+11. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 ---
 
 #### Retrieval Filtering (Agent):
-12. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-13. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-14. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+12. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+13. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+14. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 ---
 
 #### Main Conversation (Agent):
-15. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-16. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+15. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+16. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 
 ---
 
 #### Citation Processing:
-17. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-18. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+17. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+18. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 
 ##### References Integrity:
-19. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-20. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+19. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+20. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 
 ---
 
 #### Chunking Strategies:
-21. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-22. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
-23. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg?raw=True)
+21. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+22. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+23. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 
 
 ---
