@@ -175,6 +175,8 @@ We see that the retrieved chunk is not as relevant to the user prompt via Semant
 
 As Semantic Chunker computes chunks by maximizing inter-chunk distances, this may not have worked as well in this use case.
 
+---
+#### Thank you for reading!
 
 
 ---
