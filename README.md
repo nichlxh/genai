@@ -48,28 +48,28 @@ Below is the list of all prompts tested (corresponding screenshot outputs will b
 ---
 
 #### Input and Output Guardrails (Agent):
-4. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-6. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+4. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p4.svg)
+5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p5.svg)
+6. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p6.svg)
+7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p7.svg)
 ---
 
 #### History-aware Rephrasing (Agent):
-8. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-9. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-10. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-11. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+8. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p8.svg)
+9. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p9.svg)
+10. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p10.svg)
+11. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p11.svg)
 ---
 
 #### Retrieval Filtering (Agent):
-12. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-13. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-14. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+12. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p12.svg)
+13. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p13.svg)
+14. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p14.svg)
 ---
 
 #### Main Conversation (Agent):
-15. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
-16. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+15. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p15.svg)
+16. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p16.svg)
 
 ---
 
