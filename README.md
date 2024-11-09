@@ -135,19 +135,19 @@ Specifically, features were done to ensure correctness for a better user experie
 
 ##### Character Chunker:
 
-![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/c1.svg)
 
 ---
 
 ##### Recursive Character Chunker:
 
-![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/c2.svg)
 
 ---
 
 ##### Semantic Chunker:
 
-![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/c3.svg)
 
 ---
 
