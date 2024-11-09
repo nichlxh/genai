@@ -6,7 +6,7 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
 
 #### Deployment Guide:
 
-- Cloud Hosted: <a href="https://htxdigital-test.streamlit.app/" target="_blank">https://htxdigital-test.streamlit.app/</a> 
+- Cloud Hosted: https://htxdigital-test.streamlit.app/
 - Docker:
   1) Ensure Docker is installed on the system.
   2) Download the dockerFile in the repository `app/dockerFile`.
