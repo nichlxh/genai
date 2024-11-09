@@ -171,7 +171,7 @@ As the recursive chunker first chunks by the separators in the document, we see 
 
 ![chunk 3](https://github.com/nichlxh/genai/blob/main/images/c3.svg)
 
-We see that the retrieved chunk is not as relevant to the user prompt via Semantic Chunker.
+We see that the retrieved chunk is not as relevant to the user prompt via Semantic Chunker, as compared to the chunk retrieved by the former two chunkers.
 
 As Semantic Chunker computes chunks by maximizing inter-chunk distances, this may not have worked as well in this use case.
 
