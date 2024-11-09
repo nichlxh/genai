@@ -47,9 +47,25 @@ Below is the list of all prompts tested (corresponding screenshot outputs will b
 3. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 ---
 4. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p4.svg)
-
-#### Input and Output Guardrails (Agent):
+- Main Conversation Agent ensures that the user questions/prompts should only be about the Singapore Budget 2024.
+- This is already effective via System message initialization.
 ---
+#### Input and Output Guardrails (Agent):
+Taking inspiration from [Guardrailsai](https://www.guardrailsai.com/), where an input guard is used for the user's inputs, and an output guard is used for the LLM's output, I added a single guardrail agent (but dual-performing both input and output guard tasks) to mitigate against the following: Personally identifiable information (PII), toxic language, Not Safe for Work (NSFW) text, profanity, vulgarities, religion, drug, sensitive topics, unusual prompt, security hacking prompt, racial discrimination, dialect discrimination. 
+5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p5.svg)
+---
+7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p6.svg)
+---
+9. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p7.svg)
+---
+5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p8.svg)
+---
+7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p9.svg)
+---
+7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p10.svg)
+---
+We see from the below that it is effective:
+
 5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p5.svg)
 ---
 7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p6.svg)
