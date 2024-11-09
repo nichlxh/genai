@@ -71,7 +71,7 @@ We see from the below system's outputs that it is effective in detecting safety 
 
 
 #### History-aware Rephrasing (Agent):
-11. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p11.svg)
+11. ![Prompt 11](https://github.com/nichlxh/genai/blob/main/images/p11.svg)
 
 We see that the history-aware rephrased prompt helps to add in the context of Coreference resolution (CR), where "it" refers to the Majulah package (stated in the 1st user prompt of chat history).
 This rephrased prompt will more accurately retrieve the top K chunks for further use.
@@ -85,22 +85,22 @@ This rephrased prompt will more accurately retrieve the top K chunks for further
 - *Layer 1*: Retrieve top K chunks via Cosine Similarities (intentionally setting a lower sim score of 0.4 from [0, 1] via Langchain to get higher coverage)
 - *Layer 2*: Retrieval Filtering (Agent) evaluates the chunks and filters e.g., from 4 to 3 chunks.
 
-12. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p12.svg)
-13. 
+12. ![Prompt 12](https://github.com/nichlxh/genai/blob/main/images/p12.svg)
+ 
 Agent found that all chunks by RAG are relevant, so no filtering needed.
 
-14. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p13.svg)
-15. 
+13. ![Prompt 13](https://github.com/nichlxh/genai/blob/main/images/p13.svg)
+ 
 Agent removes all chunks from RAG as none are relevant.
 
-16. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p14.svg)
+14. ![Prompt 14](https://github.com/nichlxh/genai/blob/main/images/p14.svg)
 
 From the [1,2,3,4] chunks, agent found [2] to be irrelevant, and hence, agent reduced from 4 to 3 chunks for further use.
 
 ---
 
 #### Main Conversation (Agent):
-15. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p15.svg)
+15. ![Prompt 15](https://github.com/nichlxh/genai/blob/main/images/p15.svg)
 
 Above is the LLM input containing (a) user prompt and (b) the context list containing the chunks.
 For correct citation processing, the chunks are intentionally grouped under the respective source documents.
@@ -108,7 +108,7 @@ For correct citation processing, the chunks are intentionally grouped under the 
 ---
 
 #### Citation Processing:
-17. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+16. ![Prompt 16](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 
 From the above, we see that the LLM correctly cites and show the references of the documents (and its weblinks).
 Specifically, features were done to ensure correctness for a better user experience:
