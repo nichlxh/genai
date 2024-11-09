@@ -154,7 +154,7 @@ However, the chunk is correctly retrieved in being relevant.
 
 Similarly, this chunker correctly extracts the relevant chunk. 
 
-As the recursive chunker first chunks by the separators in the document, we see that the above is a little shorter than the Character Chunker, as there is in fact a delimiter *"\n"* after the last word *"month"*. As the Character Chunker do not consider seperators directly, it was able to include slightly more content due to chunk size.
+As the recursive chunker first chunks by the separators in the document, we see that the above is a little shorter than the Character Chunker, due to the fact that there is a newline delimiter *"\n"* after the phrase *"months of"* at the end. Noting that the Character Chunker does not consider separators directly, it was able to include slightly more content due to chunk size.
 
 ---
 
@@ -164,7 +164,7 @@ As the recursive chunker first chunks by the separators in the document, we see 
 
 We see that the retrieved chunk is not as relevant to the user prompt via Semantic Chunker.
 
-Possibly, this is because 
+As Semantic Chunker computes chunks by maximizing inter-chunk distances, this may not have worked as well in this use case.
 
 
 
