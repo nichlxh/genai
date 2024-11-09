@@ -39,19 +39,22 @@ Below is the list of all prompts tested (corresponding screenshot outputs will b
 2. What are the payouts I can expect to receive in December 2024?
 3. What are the Key reasons for high inflation over the last two years?
 4. 
-
+---
 1. ![Prompt 1](https://github.com/nichlxh/genai/blob/main/images/p1.svg)
 ---
 2. ![Prompt 2](https://github.com/nichlxh/genai/blob/main/images/p2.svg)
 ---
 3. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 ---
+4. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p4.svg)
 
 #### Input and Output Guardrails (Agent):
-4. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p4.svg)
+---
 5. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p5.svg)
-6. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p6.svg)
-7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p7.svg)
+---
+7. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p6.svg)
+---
+9. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p7.svg)
 ---
 
 #### History-aware Rephrasing (Agent):
