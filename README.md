@@ -32,6 +32,12 @@ For simplicity, I have downloaded the PDF files offline and parsed them as input
 ---
 
 #### List of Prompts:
+Below is the list of all prompts tested (corresponding screenshot outputs will be in the further sections):
+1. Am I eligible for the Majulah Package?
+2. What are the payouts I can expect to receive in December 2024?
+3. What are the Key reasons for high inflation over the last two years?
+4. 
+
 1. ![Prompt 1](https://github.com/nichlxh/genai/blob/main/images/p1.svg?raw=True)
 ---
 2. ![Prompt 2](https://github.com/nichlxh/genai/blob/main/images/p2.svg?raw=True)
