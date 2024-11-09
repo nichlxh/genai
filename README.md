@@ -12,7 +12,7 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
   2) Download the [Dockerfile](https://github.com/nichlxh/genai/blob/main/app/Dockerfile) in the repository.
   3) Run the below command within the same directory of the downloaded DockerFile to build the `streamlit_htx` image.
      - `docker build --no-cache -t streamlit_htx . -f Dockerfile.txt`
-     - This should take around 2mins.
+     - This should take around 1 min +.
   4) Run the command below to run the image (please input your OpenAI API key in environment variable: `OPENAI_API_KEY`):
      - `docker run -e OPENAI_API_KEY='' -p 8501:8501 streamlit_htx `
   5) Enter https://0.0.0.0:8501 on browser to view the Streamlit interface.
