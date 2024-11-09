@@ -95,9 +95,13 @@ This rephrased prompt will more accurately retrieve the top K chunks for further
  
 Agent found that all chunks by RAG are relevant, so no filtering needed.
 
+---
+
 13. ![Prompt 13](https://github.com/nichlxh/genai/blob/main/images/p13.svg)
  
 Agent removes all chunks from RAG as none are relevant.
+
+---
 
 14. ![Prompt 14](https://github.com/nichlxh/genai/blob/main/images/p14.svg)
 
