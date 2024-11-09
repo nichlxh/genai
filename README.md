@@ -72,12 +72,29 @@ We see from the below system's outputs that it is effective in detecting safety 
 
 #### History-aware Rephrasing (Agent):
 11. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p11.svg)
+
+We see that the history-aware rephrased prompt helps to add in the context of Coreference resolution (CR), where "it" refers to the Majulah package (stated in the 1st user prompt of chat history).
+This rephrased prompt will more accurately retrieve the top K chunks for further use.
+
 ---
 
 #### Retrieval Filtering (Agent):
+
+**Motivation:** While RAG can retrieve top K chunks via pair-wise computation of Cosine Similarities, a known limitation is that it is not highly accurate. In an ideal world, we could instead use an LLM to retrieve chunks as LLMs are more capable, however, this would be computationally expensive, whereas the pair-wise computations are cheaper (especially via the matrix multiplications deployed internally in known libraries). Therefore, could we have the best of both worlds?
+
+- Layer 1: Retrieve top K chunks via Cosine Similarities (intentionally setting a lower sim score of 0.4 from [0, 1] via Langchain to get higher coverage)
+- Layer 2: Retrieval Filtering (Agent) evaluates the chunks and filters e.g., from 4 to 3 chunks.
+
 12. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p12.svg)
-13. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p13.svg)
-14. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p14.svg)
+Agent found that all chunks by RAG are relevant, so no filtering needed.
+
+14. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p13.svg)
+Agent removes all chunks from RAG as none are relevant.
+
+16. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p14.svg)
+
+From the [1,2,3,4] chunks, agent found [2] to be irrelevant, and hence, agent reduced from 4 to 3 chunks for further use.
+
 ---
 
 #### Main Conversation (Agent):
