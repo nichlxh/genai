@@ -15,7 +15,7 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
      - This should take around 2mins.
   4) Run the command below to run the image (please input your OpenAI API key in environment variable: `OPENAI_API_KEY`):
      - `docker run -e OPENAI_API_KEY='' -p 8501:8501 streamlit `
-  5) Enter `https://0.0.0.0:8501` on browser to view the Streamlit interface.
+  5) Enter https://0.0.0.0:8501 on browser to view the Streamlit interface.
 
 ---
 #### Approach: 
