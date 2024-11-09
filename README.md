@@ -14,9 +14,11 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
   5) Enter `https://0.0.0.0:8501` on browser to view the Streamlit interface.
 
 ---
+#### Approach: 
+
 ![Architecture 1](https://github.com/nichlxh/genai/blob/main/images/a1.svg)
 
-#### Approach: 
+
 With the rising interest in Agentic LLMs, such as [Autogen](https://microsoft.github.io/autogen/), where it deploys a Multi-Agent Conversation Framework for agents of different roles to collaboratively solve a real-world problem, my approach to the assessment takes inspiration from this research direction. Although my approach does not involve the use of multi-turn Agent-Agent conversations in [Autogen](https://microsoft.github.io/autogen/), I have instead, used a total of $4$ agents of different roles, collaborating to generate the text output. As per the above figure, the $4$ agents span across: 
 1. **Input and Output Guardrail Agent:** Safeguards against (a) User Input and (b) Main Conversation Agent's output
 2. **History-aware Rephrasing Agent:** Summarize the chat history and current user prompt to rephrase the current user prompt to better retrieve relevant chunks.
