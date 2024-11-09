@@ -131,7 +131,7 @@ Specifically, features were done to ensure correctness for a better user experie
 
 ---
 
-#### Chunking Strategies:
+#### Chunking Strategies
 
 ##### Character Chunker:
 
