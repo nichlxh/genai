@@ -10,7 +10,7 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
 - Docker:
   1) Ensure Docker is installed on the system.
   2) Download the [Dockerfile](https://github.com/nichlxh/genai/blob/main/app/Dockerfile) in the repository.
-  3) Run the below command within the same directory of the downloaded Dockerfile to build the `streamlit_htx` image.
+  3) Run the below command within the same directory of the downloaded `Dockerfile.txt` to build the `streamlit_htx` image.
      - `docker build --no-cache -t streamlit_htx . -f Dockerfile.txt`
      - This should take around 1 min +.
   4) Enter the below command to run the image:
