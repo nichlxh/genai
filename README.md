@@ -78,7 +78,7 @@ Below is the list of all prompts used (corresponding screenshot outputs will be 
 
 As the target users are the general public, safeguards should be considered.
 
-Taking inspiration from [Guardrailsai](https://www.guardrailsai.com/), where an input guard is used for the user's inputs, and an output guard is used for the LLM's output, I added a single guardrail agent (but dual-performing both input and output guard tasks) to mitigate against the following: Personally identifiable information (PII), toxic language, Not Safe for Work (NSFW) text, profanity, vulgarities, religion, drug, sensitive topics, unusual prompt, security hacking prompt, racial discrimination, dialect discrimination. 
+Taking inspiration from [Guardrailsai](https://www.guardrailsai.com/), where an input guard is used for the user's inputs, and an output guard is used for the LLM's output, I added a single guardrail agent (but dual-performing both input and output guard tasks) to mitigate against the following: Personally Identifiable Information (PII), toxic language, profanity, vulgarities, religion, drug, sensitive topics, security hacking prompt, racial discrimination, dialect discrimination. 
 
 We see from the below system's outputs that it is effective in detecting safety concerns:
 
