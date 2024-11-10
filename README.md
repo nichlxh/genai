@@ -24,7 +24,7 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
 ![Architecture 1](https://github.com/nichlxh/genai/blob/main/images/a1.svg)
 
 
-With the rising interest in Agentic LLMs, I have used $4$ agents of different roles, collaborating to generate the text output. As per the above figure, the key modules are:
+With the rising interest and known benefits of Agentic LLMs, I have used $4$ agents of different roles, collaborating to generate the text output. As per the above figure, the key modules are:
 1. ***Input and Output Guards (Agent):*** Safeguards against (a) User Input and (b) Main Conversation Agent's output.
 2. ***History-aware Rephrasing (Agent):*** Summarize the chat history and current user prompt to rephrase the current user prompt to better retrieve relevant chunks.
 3. ***Retrieval Filtering (Agent):*** A 2nd layer "filter" of the chunks retrieved via vanilla RAG e.g., from 6 chunks reduced to 3 most relevant chunks.
