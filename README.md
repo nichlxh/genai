@@ -39,6 +39,10 @@ In the following short sections, I will share more about the system developed, w
 
 For simplicity, I have downloaded the PDF files offline and parsed them as input, accordingly chunking them and storing them in the vector database for RAG usage.
 
+![Dataset 2](https://github.com/nichlxh/genai/blob/main/images/data2.svg)
+
+To help build the references for the citations, I have also extracted the respective web links to improve user experience.
+
 ---
 
 #### List of Prompts:
