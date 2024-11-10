@@ -90,7 +90,7 @@ def guardrailAgent(message ,client,  mode):
     'You are a guardrail LLM agent, responsible for checking if the input message or prompt has a high confidence score on any of the following: '
     'Personally identifiable information (PII), toxic language, Not Safe for Work (NSFW) text, profanity, vulgarities, religion, drug, sensitive topics, unusual prompt, security hacking prompt, racial discrimination, dialect discrimination. '
     'It is acceptable if the prompt or message includes the person race as supporting context for the question, as long as there is no comparison, discrimination, and sensitivity involved. '
-    'As long as you believe that there is a chance that the input message or prompt could relate to any of the mentioned, you should strictly output only the word \"Unsafe\", else strictly output only the word \"Safe\".'
+    'If you strongly believe that the input message or prompt could relate to any of the mentioned, you should strictly output only the word \"Unsafe\", else strictly output only the word \"Safe\".'
     )
 
     # Input Guard
@@ -116,9 +116,9 @@ def historyAwareAgent(st, client):
     historyAwareSystemPrompt = (
         "You are a rephrasing LLM agent. Given a chat history and the latest user prompt or message, "
         "which might reference context in the chat history, your role is to "
-        "rephrase the latest user prompt or message by incoporating the historical context (if any), where the rephrased user message can now be understood "
+        "rephrase the latest user prompt or message, keeping the changes as little as possible, by incoporating the historical context (if any), where the rephrased user message can now be understood "
         "without the chat history. Do NOT answer the question. "
-        "If no rephrasing is needed, then just output the latest user prompt or message."
+        "If no rephrasing is needed, then just output the latest user prompt or message. "
     )
 
     # replace system message to retain chat history but with a different agent initialization message.
@@ -140,7 +140,7 @@ def retrievalFilterAgent(message, client):
     '''
     retreivalFilterSystemPrompt = (
         'You are a context filtering LLM agent, specifically, given (a) the user prompt and (b) a list of context paragraphs, you are responsible in evaluating which context paragraphs are relevant and supportive in answering the user prompt. '
-        'For a given context list, denoted with e.g., [1], [2], [3], if you are confident that only [2] and [3] are relevant, then you should output \"[2,3]\". '
+        'For a given context list, denoted with e.g., [1], [2], [3], if you are 90% confident that only [2] and [3] are relevant, then you should output \"[2,3]\". '
         'Note that you must strictly output in the format of e.g., [1,2,3] as the final output. '
         'If there are no context shared which you find to be relevant or supportive to answering the user prompt, then you should output \"None\".' )
 
@@ -330,9 +330,9 @@ def initializeStreamlit (st,outOfTopicMessage,welcomeMessage):
         systemPrompt = ('You are a friendly and enthusiastic conversational question-answering agent to help country citizens to learn more about the Singapore Budget 2024. '
                         'The Singapore Budget 2024 includes many initiatives, payouts, and benefits to the citizens of Singapore. '
                         'You are only allowed to answer questions that are about the Singapore Budget 2024. '
-                        'Questions to better understand the budget, such as its initiatives, payouts, and benefits, must be answered. '
+                        'Questions to better understand the budget, such as its initiatives, payouts, and benefits, should be answered. '
                         'if the user is asking questions with references to the chat history, that is about the Singapore Budget 2024, then you should respond since the reference is about the Singapore Budget 2024. '
-                        'If you feel that there are questions by the user that are not for the purpose of better understanding or related to the Singapore Budget 2024, then you should say '
+                        'Only if you strongly feel that there are questions by the user that are not for the purpose of better understanding or related to the Singapore Budget 2024, then you should say '
                         '\"' + outOfTopicMessage + '\" ')
         st.session_state["messages"] = [{"role": "system", "content": systemPrompt}]
         st.session_state["messages"].append({"role": "assistant", "content": welcomeMessage})
