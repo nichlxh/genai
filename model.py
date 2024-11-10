@@ -140,9 +140,9 @@ def retrievalFilterAgent(message, client):
     '''
     retreivalFilterSystemPrompt = (
         'You are a context filtering LLM agent, specifically, given (a) the user prompt and (b) a list of context paragraphs, you are responsible in evaluating which context paragraphs are relevant and supportive in answering the user prompt. '
-        'For a given context list, denoted with e.g., [1], [2], [3], if you find that only [2] and [3] are relevant, then you should output \"[2,3]\". '
+        'For a given context list, denoted with e.g., [1], [2], [3], if you are confident that only [2] and [3] are relevant, then you should output \"[2,3]\". '
         'Note that you must strictly output in the format of e.g., [1,2,3] as the final output. '
-        'If there are no context shared which you find to be relevant or supportive to answering the user prompt, then you should output \"None\"')
+        'If there are no context shared which you find to be relevant or supportive to answering the user prompt, then you should output \"None\".' )
 
     # only user prompt is needed to be considered here.
     retrievalFilterMessage = [{"role": "system", "content": retreivalFilterSystemPrompt},
