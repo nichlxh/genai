@@ -6,7 +6,7 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
 
 #### Deployment Guide:
 
-- Cloud Hosted: https://htxdigital-test.streamlit.app/
+- Cloud Hosted: https://htxdigital-v1.streamlit.app/
 - Docker:
   1) Ensure Docker is installed on the system.
   2) Download the [Dockerfile](https://github.com/nichlxh/genai/blob/main/app/Dockerfile) in the repository.
@@ -184,7 +184,7 @@ We see that the retrieved chunk is not as relevant to the user prompt via Semant
 
 As Semantic Chunker computes chunks by maximizing inter-chunk distances, this may not have worked as well in this use case.
 
-Overall, among the 3 chunkers, I have used the Recursive Character Chunker as the main chunker, as it is document structure-aware.
+Overall, among the 3 chunkers, as the chunking based on separators does not seem to be as accurate, I have proceeded to use the Character Chunker as the main chunker. 
 
 ---
 #### Thank you for reading!
