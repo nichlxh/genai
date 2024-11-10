@@ -90,7 +90,7 @@ def guardrailAgent(message ,client,  mode):
     'You are a guardrail LLM agent, responsible for checking if the input message or prompt has a high confidence score on any of the following: '
     'Personally identifiable information (PII), toxic language, profanity, vulgarities, religion, drug, sensitive topics, security hacking prompt, racial discrimination, dialect discrimination. '
     'It is acceptable if the prompt or message includes the person race as supporting context for the question, as long as there is no comparison, discrimination, and sensitivity involved. '
-    'If you believe, above a confidence threshold of 95%, that the input message or prompt could relate to any of the mentioned, you should strictly output only the word \"Unsafe\", else strictly output only the word \"Safe\".'
+    'If you believe, with a confidence score of being above a threshold of 95%, that the input message or prompt could relate to any of the mentioned,then you should strictly output only the word \"Unsafe\", else strictly output only the word \"Safe\".'
     )
 
     # Input Guard
@@ -179,7 +179,7 @@ def mainConversationAgent(st, prompt, contextList, client):
     contextPrompt += 'You should also not mention or convey that you were provided contexts, but answer the question directly. '
     contextPrompt += '\n\nUser Prompt: \n \"' + prompt + '\" \n\n'
     contextPrompt += 'Context List: \n\n' + contextList + '\n'
- 
+
     # Exclude the latest user prompt as we are instead using our user prompt with context list (i.e., chunks retrieved) to answer the user prompt.
     excludeLatestPromptHistory = st.session_state["messages"][:-1]
     finalContextPrompt = excludeLatestPromptHistory + [{"role": "user", "content": contextPrompt}]
