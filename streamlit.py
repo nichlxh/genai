@@ -2,6 +2,10 @@ from openai import OpenAI
 import streamlit as st
 import sys
 from model import *
+import logging
+
+# ignore langchain chunking unmeaningful warnings 
+logging.getLogger("langchain_text_splitters.base").setLevel(logging.ERROR)
 
 # Streamlit page settings
 st.set_page_config(page_title="Chatbot", layout="wide")
