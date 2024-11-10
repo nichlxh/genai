@@ -99,7 +99,7 @@ This rephrased prompt will more accurately retrieve the top $K$ chunks for furth
 
 #### Retrieval Filtering (Agent):
 
-***Motivation:*** While vanilla RAG can retrieve top $K$ chunks via pair-wise computation of Cosine Similarities, a known limitation is that it is not highly accurate. In an ideal world, we could instead use an LLM to retrieve chunks as LLMs are more capable, however, this would be computationally expensive, whereas the pair-wise computations are cheaper (especially via the matrix multiplication operations deployed in known libraries). Therefore, would it be possible to have the best of both worlds?
+***Motivation:*** While vanilla RAG can retrieve top $K$ chunks via pairwise computation of Cosine Similarities, a known limitation is that it is not highly accurate. In an ideal world, we could instead use an LLM to retrieve chunks as LLMs are more capable, however, this would be computationally expensive, whereas the pairwise computations are cheaper (especially via the matrix multiplication operations deployed in known libraries). Therefore, would it be possible to have the best of both worlds?
 
 - *Layer 1*: Retrieve top $K$ chunks via Cosine Similarities (intentionally setting a lower sim score of 0.4 from [0, 1] via Langchain to get higher coverage of chunks)
 - *Layer 2*: Retrieval Filtering (Agent) evaluates the chunks and filters e.g., from 4 to 3 chunks.
