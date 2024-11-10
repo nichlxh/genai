@@ -57,8 +57,8 @@ def createVectorStore (pdf2text):
     :return: vectorstore
     '''
 
-    # text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=200)
+    # text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     # text_splitter = SemanticChunker(OpenAIEmbeddings(), breakpoint_threshold_type="percentile")
 
     allDocContent = list(pdf2text.values())
@@ -88,9 +88,9 @@ def guardrailAgent(message ,client,  mode):
     '''
     securityAwareSystemPrompt = (
     'You are a guardrail LLM agent, responsible for checking if the input message or prompt has a high confidence score on any of the following: '
-    'Personally identifiable information (PII), toxic language, Not Safe for Work (NSFW) text, profanity, vulgarities, religion, drug, sensitive topics, unusual prompt, security hacking prompt, racial discrimination, dialect discrimination. '
+    'Personally identifiable information (PII), toxic language, profanity, vulgarities, religion, drug, sensitive topics, security hacking prompt, racial discrimination, dialect discrimination. '
     'It is acceptable if the prompt or message includes the person race as supporting context for the question, as long as there is no comparison, discrimination, and sensitivity involved. '
-    'If you strongly believe that the input message or prompt could relate to any of the mentioned, you should strictly output only the word \"Unsafe\", else strictly output only the word \"Safe\".'
+    'If you believe, above a confidence threshold of 95%, that the input message or prompt could relate to any of the mentioned, you should strictly output only the word \"Unsafe\", else strictly output only the word \"Safe\".'
     )
 
     # Input Guard
@@ -113,11 +113,14 @@ def historyAwareAgent(st, client):
     :param client: LLM client
     :return: historyAwareMsg rephrased user prompt
     '''
+
     historyAwareSystemPrompt = (
         "You are a rephrasing LLM agent. Given a chat history and the latest user prompt or message, "
-        "which might reference context in the chat history, your role is to "
-        "rephrase the latest user prompt or message, keeping the changes as little as possible, by incoporating the historical context (if any), where the rephrased user message can now be understood "
-        "without the chat history. Do NOT answer the question. "
+        "which might reference context in the chat history, your role is to first assess if there are any relevant chat history to the user prompt, and where the relevant chat history does not answer the user prompt. "
+        "If so, rephrase the latest user prompt or message, as little as possible, and incoporate any relevant historical context that does not answer the user prompt, where the rephrased user message can now be understood "
+        "without the chat history. "
+        "If there are no relevant chat history to the user prompt, then you should not rephrase and just output the latest user prompt or message."
+        "Note that it is very important that you do not answer the question. "
         "If no rephrasing is needed, then just output the latest user prompt or message. "
     )
 
@@ -139,10 +142,12 @@ def retrievalFilterAgent(message, client):
     :return: retrievalFilterAgentMsg, the relevant citation numbers from the list of chunks
     '''
     retreivalFilterSystemPrompt = (
-        'You are a context filtering LLM agent, specifically, given (a) the user prompt and (b) a list of context paragraphs, you are responsible in evaluating which context paragraphs are relevant and supportive in answering the user prompt. '
-        'For a given context list, denoted with e.g., [1], [2], [3], if you are 90% confident that only [2] and [3] are relevant, then you should output \"[2,3]\". '
-        'Note that you must strictly output in the format of e.g., [1,2,3] as the final output. '
-        'If there are no context shared which you find to be relevant or supportive to answering the user prompt, then you should output \"None\".' )
+        'You are a context filtering LLM agent, specifically, given (a) the user prompt and (b) a list of context paragraphs, you are responsible in evaluating which context paragraphs are irrelevant and not supportive in answering the user prompt. '
+        'For a given context reference, if your confidence score of irrelevance is above 90%, then it should be removed.'
+        'For example, with a given context list, denoted with e.g., [1], [2], [3], where \"[1]\" has a confidence score of irrelevance above 90%, then you should output \"[2,3]\" as they are the only relevant context paragraphs. '
+        'Overall, you must always try to keep at least 2 context paragraphs as your final output, even if they are not very relevant. '
+        'You should output \"None\" if there are no relevant context paragraphs.'
+        'Note that you must strictly output in the format of e.g., [1,2,3] as the final output. ' )
 
     # only user prompt is needed to be considered here.
     retrievalFilterMessage = [{"role": "system", "content": retreivalFilterSystemPrompt},
@@ -165,10 +170,12 @@ def mainConversationAgent(st, prompt, contextList, client):
     '''
 
     contextPrompt = 'Given the chat history, and the below (a) user prompt and (b) context list sections, answer the prompt by citing the contents in context list, where the citation should be in the format of e.g. [1], [2], [1, 2]. '
-    contextPrompt += 'Try to leverage all of the contexts for the answer where possible. '
+    contextPrompt += 'Try to leverage all of the contexts for the answer where possible, and try to always include citations for every line of your answer. '
     contextPrompt += 'However, if you feel any or all of the contexts in the context list are not helpful or relevant enough to assist you in the building of the answer, then you can ignore them.'
     contextPrompt += 'Note that you do not need to explain yourself if you exclude any context that is not helpful. You should also directly reply to the prompt. '
-    contextPrompt += 'While you need to include citations, you do not need to include the reference list or context list sections.'
+    contextPrompt += 'While you need to include citations, you do not need to include the reference list or context list section. '
+    contextPrompt += 'Note that it is important that your output only contain facts which you are confident of including in the final output, and where they can be found in the reference list or context list section. '
+    contextPrompt += 'You should also not mention or convey that you were provided contexts, but answer the question directly. '
     contextPrompt += '\n\nUser Prompt: \n \"' + prompt + '\" \n\n'
     contextPrompt += 'Context List: \n\n' + contextList + '\n'
 
@@ -248,7 +255,7 @@ def extractTopChunksWithFiltering(historyAwareMsg, vectorstore, client):
     simThreshold = 0.4
     filteredTopK = []
     for eachChunk in topK:
-        if eachChunk[1] >= simThreshold:
+        if eachChunk[1] > simThreshold:
             filteredTopK.append(eachChunk)
 
     # ====== LLM Chunk Filtering =======
@@ -260,7 +267,7 @@ def extractTopChunksWithFiltering(historyAwareMsg, vectorstore, client):
         chunkContent = chunkContent.replace('\n', ' ')
         retrievalFilterAgentContextList += '[' + str(index + 1) + '] ' + chunkContent + '\n\n'
 
-    retrievalFilterAgentInputMsg = historyAwareMsg + '\n\n' + 'Context List: \n\n' + retrievalFilterAgentContextList
+    retrievalFilterAgentInputMsg = 'User Prompt: ' + historyAwareMsg + '\n\n' + 'Context List: \n\n' + retrievalFilterAgentContextList
     retrievalFilterAgentMsg = retrievalFilterAgent(retrievalFilterAgentInputMsg, client)
 
     # filter agent find none of the chunks are relevant.
