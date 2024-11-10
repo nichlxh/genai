@@ -137,7 +137,7 @@ For correct citation processing, the chunks are intentionally grouped under the 
 ---
 
 #### Citation Processing:
-16. ![Prompt 16](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
+16. ![Prompt 16](https://github.com/nichlxh/genai/blob/main/images/p1.svg)
 
 From the above, we see that the LLM correctly cites and show the references of the documents (and its weblinks).
 Specifically, features were done to ensure correctness for a better user experience:
