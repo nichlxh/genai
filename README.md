@@ -26,7 +26,7 @@ This repository shares the approach for the RAG-powered Chatbot, focusing on the
 
 With the rising interest and benefits of Agentic LLMs, I have used $4$ agents of different roles, collaborating to generate the text output. As per the above figure, the key modules are:
 1. ***Input and Output Guards (Agent):*** Safeguards against (a) User Input and (b) Main Conversation Agent's output.
-2. ***History-aware Rephrasing (Agent):*** Summarize the chat history and current user prompt to rephrase the current user prompt to better retrieve relevant chunks.
+2. ***History-aware Rephrasing (Agent):*** Leverage the current user prompt and identify relevant chat histories, then rephrase the current user prompt to better retrieve relevant chunks.
 3. ***Retrieval Filtering (Agent):*** A 2nd layer "filter" of the chunks retrieved via vanilla RAG e.g., from 6 chunks reduced to 3 most relevant chunks.
 4. ***Main Conversation (Agent):*** The main conversational agent to correspond with the user.
 5. ***Citation Processing:*** Ensures references are not hallucinated and citations are correctly presented to the user for a better experience. 
