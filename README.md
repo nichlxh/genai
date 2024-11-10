@@ -43,7 +43,7 @@ For simplicity, I have downloaded the PDF files offline and parsed them as input
 
 To help build the references for the citations, I have also extracted the respective web links to improve user experience.
 
-Overall, for this case, as the dataset seems to be static, I did not code to scrape the documents and links on every code run (but it can be done so where needed).
+Overall, for this case, as the dataset seems to be static, I did not code to scrape the documents and links on every code run (but it can be done so where needed in future).
 
 ---
 
