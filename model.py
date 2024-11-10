@@ -332,7 +332,7 @@ def initializeStreamlit (st,outOfTopicMessage,welcomeMessage):
                         'You are only allowed to answer questions that are about the Singapore Budget 2024. '
                         'Questions to better understand the budget, such as its initiatives, payouts, and benefits, must be answered. '
                         'if the user is asking questions with references to the chat history, that is about the Singapore Budget 2024, then you should respond since the reference is about the Singapore Budget 2024. '
-                        'If you feel that there are questions by the user that are not for the purpose of better understanding or related to the Singapore Budget 2024, then you should say'
+                        'If you feel that there are questions by the user that are not for the purpose of better understanding or related to the Singapore Budget 2024, then you should say '
                         '\"' + outOfTopicMessage + '\" ')
         st.session_state["messages"] = [{"role": "system", "content": systemPrompt}]
         st.session_state["messages"].append({"role": "assistant", "content": welcomeMessage})
