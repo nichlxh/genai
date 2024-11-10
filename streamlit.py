@@ -46,9 +46,6 @@ if prompt := st.chat_input():
     with st.chat_message("user"):
         st.write_stream(stream_data(prompt))
 
-
-
-
     # Check if user input is safe
     user_securityAwareMsg = guardrailAgent(prompt, client, mode='user')
 
@@ -80,7 +77,6 @@ if prompt := st.chat_input():
     else: # Unsafe or other responses, we will submit a default rejection message
         finalOutput_msg = defaultRejectionMessage
 
-
     # Check if final output is safe
     llm_securityAwareMsg = guardrailAgent(finalOutput_msg, client, mode='assistant' )
 
@@ -92,5 +88,4 @@ if prompt := st.chat_input():
     st.session_state["messages"].append({"role": "assistant", "content": finalOutput_msg})
     with st.chat_message("assistant"):
         st.write_stream(stream_data(finalOutput_msg))
-
 
