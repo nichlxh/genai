@@ -174,11 +174,12 @@ def mainConversationAgent(st, prompt, contextList, client):
     contextPrompt += 'However, if you feel any or all of the contexts in the context list are not helpful or relevant enough to assist you in the building of the answer, then you can ignore them.'
     contextPrompt += 'Note that you do not need to explain yourself if you exclude any context that is not helpful. You should also directly reply to the prompt. '
     contextPrompt += 'While you need to include citations, you do not need to include the reference list or context list section. '
-    contextPrompt += 'Note that it is important that your output only contain correct facts, and where they can be found in the reference list or context list section. '
+    contextPrompt += 'Note that it is important that your output only contain facts, where they can be found in the reference list or context list section. '
+    contextPrompt += 'If you are unsure about the facts found in the provided contexts, then you should either not include them or ensure that your response correctly portray the facts accurately. '
     contextPrompt += 'You should also not mention or convey that you were provided contexts, but answer the question directly. '
     contextPrompt += '\n\nUser Prompt: \n \"' + prompt + '\" \n\n'
-    contextPrompt += 'Context List: \n\n' + contextList + '\n' 
-
+    contextPrompt += 'Context List: \n\n' + contextList + '\n'
+ 
     # Exclude the latest user prompt as we are instead using our user prompt with context list (i.e., chunks retrieved) to answer the user prompt.
     excludeLatestPromptHistory = st.session_state["messages"][:-1]
     finalContextPrompt = excludeLatestPromptHistory + [{"role": "user", "content": contextPrompt}]
