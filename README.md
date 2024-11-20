@@ -67,6 +67,9 @@ Below is the list of all prompts used (corresponding screenshot outputs will be 
 1. ![Prompt 1](https://github.com/nichlxh/genai/blob/main/images/p1.svg)
 ---
 2. ![Prompt 2](https://github.com/nichlxh/genai/blob/main/images/p2.svg)
+
+UPDATE: As the dataset does not include the infographics from https://www.mof.gov.sg/singaporebudget/resources/budget-infographics, the LLM was not able to share the specific payout in Dec 2024. Adding this dataset is part of the future roadmap where needed.
+
 ---
 3. ![Prompt 3](https://github.com/nichlxh/genai/blob/main/images/p3.svg)
 ---
